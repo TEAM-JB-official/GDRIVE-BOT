@@ -6,7 +6,14 @@ from bot import DATABASE_URL, LOGGER
 
 def start() -> scoped_session:
   try:
-    engine = create_engine(DATABASE_URL)
+    engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True,
+    pool_recycle=300,
+    connect_args={
+        "sslmode": "require"
+    }
+    )
     BASE.metadata.bind = engine
     BASE.metadata.create_all(engine)
     return scoped_session(sessionmaker(bind=engine, autoflush=False))
