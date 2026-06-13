@@ -107,7 +107,7 @@ def _telegram_file(client, message):
             file = message.audio
 
         elif message.photo:
-            file = message.photo[-1]  # highest quality
+            file = message.photo  # highest quality
 
             file.file_name = f"IMG-{user_id}-{message.id}.jpg"
             file.mime_type = "image/jpeg"
